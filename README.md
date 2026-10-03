@@ -3,6 +3,22 @@
 - Composer >= 2.10.3
 - Git
 
+
+
+### installing after git clone
+```ps
+git clone https://github.com/kinsin5/WSB-worker-registry.git
+cd WSB-worker-registry
+composer install
+npm install
+copy .env.example .env
+php artisan key:generate
+```
+
+### Errors
+
+#### php ZIP
+
 ### Enable the PHP ZIP extension (XAMPP on Windows)
 
 Composer uses the PHP CLI configuration shown in its error output. Open that
@@ -12,9 +28,3 @@ the CLI has loaded ZIP:
 
 ```powershell
 php -m | findstr /i zip
-```
-
-Retry `composer create-project` after `zip` appears in the output.
-
-### instaling
-composer create-project --prefer-dist laravel/laravel:^12.* worker-registry
