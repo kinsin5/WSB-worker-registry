@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+//Relacje
+use App\Models\WorkEntry;
+use App\Models\WorkEntryComment;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -22,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -45,5 +50,19 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function workEntries()
+    {
+        return $this->hasMany(WorkEntry::class, 'user_id');
+    }
+
+    public function createdWorkEntries()
+    {
+        return $this->hasMany(WorkEntry::class, 'created_by');
+    }
+
+    public function workEntryComments()
+    {
+        return $this->hasMany(WorkEntryComment::class);
     }
 }

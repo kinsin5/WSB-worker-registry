@@ -15,6 +15,10 @@ copy .env.example .env
 php artisan key:generate
 ```
 
+### Running it
+
+php artisan serve
+
 ### Errors
 
 #### php ZIP
