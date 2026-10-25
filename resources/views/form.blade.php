@@ -13,7 +13,7 @@
     <p>
         This is the form page of the website.
     </p>
-
+    
     <form action= {{ route('books.store')}} method="POST">
         @csrf
         <label for="title">Tytuł:</label>
