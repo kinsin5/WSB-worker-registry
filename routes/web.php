@@ -21,10 +21,6 @@ Route::post('/books', [BookController::class, 'store'])
 Route::get('/books', [BookController::class, 'index'])
  ->name('books.index');
 
-Route::get('/home', function () {
-    return "home";
-})->name('home');
-
 Route::get('/about', function () {
     return "about";
 })->name('about');  
@@ -35,4 +31,15 @@ Route::get('/contact', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::middleware('role:admin')->get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])
+        ->name('dashboard.admin');
+
+    Route::middleware('role:admin,supervisor')->get('/supervisor', [App\Http\Controllers\HomeController::class, 'supervisor'])
+        ->name('dashboard.supervisor');
+
+    Route::middleware('role:employee')->get('/employee', [App\Http\Controllers\HomeController::class, 'employee'])
+        ->name('dashboard.employee');
+});
