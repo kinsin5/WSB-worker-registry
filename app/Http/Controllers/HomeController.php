@@ -22,7 +22,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(User $user)
     {
         return match (auth()->guard()->user()->role) {
             User::ROLE_ADMIN => redirect()->route('dashboard.admin'),
@@ -73,3 +73,8 @@ class HomeController extends Controller
         ]);
     }
 }
+
+
+
+
+
