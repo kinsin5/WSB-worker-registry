@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WorkEntry;
 use Illuminate\Http\Request;
+use App\Http\Requests\WorkEntryRequest;
 
 class WorkEntryController extends Controller
 {

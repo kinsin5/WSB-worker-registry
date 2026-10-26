@@ -14,6 +14,10 @@ use App\Models\WorkEntryComment;
 
 class User extends Authenticatable
 {
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_SUPERVISOR = 'supervisor';
+    public const ROLE_EMPLOYEE = 'employee';
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
@@ -64,5 +68,10 @@ class User extends Authenticatable
     public function workEntryComments()
     {
         return $this->hasMany(WorkEntryComment::class);
+    }
+
+    public function hasRole(string|array $roles): bool
+    {
+        return in_array($this->role, (array) $roles, true);
     }
 }

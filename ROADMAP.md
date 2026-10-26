@@ -72,12 +72,13 @@ Cel: zaprojektować dane aplikacji.
 
 Cel: spełnić wymagania dotyczące logowania i uprawnień.
 
-- [ ] Sprawdź rejestrację, logowanie, wylogowanie i reset hasła.
-- [ ] Upewnij się, że hasła są hashowane przez Laravel, nigdy zapisane zwykłym tekstem.
-- [ ] Dodaj obsługę pola `role` do modelu `User`.
-- [ ] Stwórz middleware dla ról, np. `role:admin` oraz `role:admin,supervisor`.
-- [ ] Po zalogowaniu kieruj użytkownika na dashboard odpowiedni dla jego roli.
-- [ ] Zabezpiecz trasy po stronie serwera, nie tylko przez ukrywanie linków w menu.
+- [x] Rejestracja, logowanie, wylogowanie i trasy resetu hasła są dostępne przez `Auth::routes()`.
+- [x] Hasła są hashowane przez Laravel (`password => hashed` oraz `Hash::make()` w rejestracji).
+- [x] Dodano obsługę `role` do modelu `User`, w tym stałe ról i metodę `hasRole()`.
+- [x] Dodano middleware `role` oraz alias w `bootstrap/app.php`.
+- [x] Po zalogowaniu `/home` przekierowuje na odpowiedni dashboard roli.
+- [x] Trasy dashboardów są chronione po stronie serwera middlewarem `auth` i `role`.
+- [x] Dodano przycisk wylogowania `POST` z tokenem CSRF w panelu AdminLTE.
 
 **Gotowe, gdy:** pracownik nie może wejść do panelu administratora po ręcznym wpisaniu adresu URL.
 
