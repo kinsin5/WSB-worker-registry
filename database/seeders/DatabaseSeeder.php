@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Faker\Provider\pl_PL\Person;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,11 +15,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory()->create([
+            'name' => 'user1',
+            'email' => 'user@wp.pl',
+            'password' => 'haslohaslo',
+            'role' => 'employee',
+        ]);
 
         User::factory()->create([
-            'name' => fake()->name(),
-            'email' => 'test@example.com',
+            'name' => 'supervisor1',
+            'email' => 'super@wp.pl',
+            'password' => 'haslohaslo',
+            'role' => 'supervisor',
         ]);
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@wp.pl',
+            'password' => 'haslohaslo',
+            'role' => 'admin',
+        ]);
+
+        User::factory(10)->create();
+
+        // User::factory()->create([
+        //     'name' => fake('pl_PL')->name(),
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

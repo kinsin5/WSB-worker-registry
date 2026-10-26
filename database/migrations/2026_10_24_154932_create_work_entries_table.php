@@ -32,15 +32,3 @@ return new class extends Migration
         Schema::dropIfExists('work_entries');
     }
 };
-
-
-
-
-$table->id();
-$table->foreignId('user_id')->constrained()->cascadeOnDelete();
-$table->date('work_date');
-$table->decimal('hours', 5, 2);
-$table->foreignId('created_by')->constrained('users')->restrictOnDelete();
-$table->timestamps();
-
-$table->unique(['user_id', 'work_date']);

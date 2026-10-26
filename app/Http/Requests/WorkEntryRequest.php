@@ -29,14 +29,16 @@ class WorkEntryRequest extends FormRequest
 
     public function messages(): array
     {
-        return 1;
+        return [
+
+        ];
     }
 
     public function attributes(): array
     {
         return [
             'title' => 'tytul ksiazki',
-            'year' => 'rok wydania'
+            'year' => 'rok wydania',
         ];
     }
 }

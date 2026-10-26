@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -20,7 +21,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index(User $user)
     {
@@ -34,10 +35,18 @@ class HomeController extends Controller
 
     public function admin(): View
     {
+
+        $users = User::query()
+            ->select('id', 'name', 'email', 'role', 'created_at')
+            ->latest()
+            ->paginate(10);
+
         return $this->dashboard(
             'Panel administratora',
             'Zarządzaj użytkownikami, rolami oraz ewidencją czasu pracy w firmie.',
             'fas fa-user-shield',
+            $this->getUserCount(),
+            $users
         );
     }
 
@@ -47,6 +56,7 @@ class HomeController extends Controller
             'Panel przełożonego',
             'Rejestruj godziny pracy pracowników i kontroluj bieżącą ewidencję.',
             'fas fa-user-clock',
+            $this->getUserCount()
         );
     }
 
@@ -56,15 +66,19 @@ class HomeController extends Controller
             'Panel pracownika',
             'Przeglądaj własną historię pracy oraz komentarze do wpisów.',
             'fas fa-id-badge',
+            $this->getUserCount()
         );
     }
 
-    private function dashboard(string $title, string $message, string $icon): View
+    private function dashboard(string $title, string $message, string $icon,
+        ?int $usercount = null, $users = null): View
     {
         return view('adminLte.dashboard', [
             'dashboardTitle' => $title,
             'dashboardMessage' => $message,
             'dashboardIcon' => $icon,
+            'userCount' => $usercount ?? $this->getUserCount(),
+            'users' => $users,
             'roleLabel' => match (auth()->guard()->user()->role) {
                 User::ROLE_ADMIN => 'Administrator',
                 User::ROLE_SUPERVISOR => 'Przełożony',
@@ -72,9 +86,14 @@ class HomeController extends Controller
             },
         ]);
     }
+
+    public function getUserCount(): int
+    {
+        return User::count();
+    }
+
+    public function return1(): int
+    {
+        return 1;
+    }
 }
-
-
-
-
-
