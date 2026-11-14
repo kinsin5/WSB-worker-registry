@@ -46,4 +46,27 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/users', [UserController::class, 'store'])
         ->middleware('role:admin')
         ->name('users.store');
+    Route::post('/admin/users/delete', [UserController::class, 'destroy' ])
+        ->middleware('role:admin')
+        ->name('users.destroy');
+    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])
+        ->middleware('role:admin')
+        ->name('users.edit');
+    Route::put('/admin/users/{user}', [UserController::class, 'update'])
+        ->middleware('role:admin')
+        ->name('users.update');
 });
+
+/*
+//use App\Http\Controllers\UserController;
+use App\Models\User;
+
+// Route definition...
+Route::get('/users/{user}', [UserController::class, 'show']);
+
+// Controller method definition...
+public function show(User $user)
+{
+    return view('user.profile', ['user' => $user]);
+}
+    */
