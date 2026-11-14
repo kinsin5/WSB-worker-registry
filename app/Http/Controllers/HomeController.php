@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -33,13 +34,22 @@ class HomeController extends Controller
         };
     }
 
-    public function admin(): View
+    public function admin(Request $request): View
     {
+
+        $search = $request->string('search')->trim()->value();
 
         $users = User::query()
             ->select('id', 'name', 'email', 'role', 'created_at')
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return $this->dashboard(
             'Panel administratora',

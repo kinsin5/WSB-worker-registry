@@ -105,7 +105,19 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-users mr-2"></i>Użytkownicy</h3>
-                            <div class="card-tools">Łącznie: {{ $users->total() }}</div>
+                            <div class="card-tools d-flex align-items-center">
+                                <span class="mr-2">Łącznie: {{ $users->total() }}</span>
+                                <form action="{{ route('dashboard.admin') }}" method="GET" class="mb-0">
+                                    <div class="input-group input-group-sm" style="width: 250px;">
+                                        <input class="form-control" type="search" name="search" value="{{ request('search') }}" placeholder="Szukaj po nazwie lub e-mailu" aria-label="Szukaj użytkowników">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-default" type="submit" aria-label="Szukaj">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
 
                         <div class="card-body p-0">
@@ -117,6 +129,7 @@
                                             <th>E-mail</th>
                                             <th>Rola</th>
                                             <th>Data utworzenia</th>
+                                            <th>Akcja</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -126,10 +139,24 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td><span class="badge badge-secondary">{{ $user->role }}</span></td>
                                                 <td>{{ $user->created_at?->format('d.m.Y H:i') ?? '—' }}</td>
+                                                <td class="actions-cell">
+                                                    <div class="menu">
+                                                        <form action="{{route('users.edit', $user->id) }}" method="GET">
+                                                            <button class="btn btn-default" type=submit>Edit</button>
+                                                        </form>
+
+                                                        <form action="{{ route('users.destroy') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{ $user->id }}">
+                                                            <button class="btn btn-default" type="submit">Delete</button>
+                                                        </form>                                                        
+                                                    </div>
+                                                </td>
+
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="text-center text-muted py-4">Brak użytkowników.</td>
+                                                <td colspan="5" class="text-center text-muted py-4">Brak użytkowników.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -185,6 +212,12 @@
                             <div class="form-group mb-0">
                                 <label for="password_confirmation">Powtórz hasło</label>
                                 <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <input class="form-control @error('role') is-invalid @enderror" type="role" id="role" name="role" value="{{ old('role') }}" required>
+                                @error('role')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
                             </div>
                         </div>
                         <div class="card-footer"><button type="submit" class="btn btn-primary">Utwórz użytkownika</button></div>

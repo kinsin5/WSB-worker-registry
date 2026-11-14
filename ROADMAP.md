@@ -86,20 +86,20 @@ Cel: spełnić wymagania dotyczące logowania i uprawnień.
 
 Cel: zrealizować obowiązkowy CRUD użytkowników.
 
-- [ ] Lista użytkowników.
-- [ ] Wyszukiwanie po imieniu lub adresie e-mail.
-- [ ] Widok szczegółów użytkownika.
-- [ ] Tworzenie konta pracownika albo supervisora.
+- [x] Lista użytkowników.
+- [x] Wyszukiwanie po imieniu lub adresie e-mail.
+- [X] Widok szczegółów użytkownika.
+- [X] Tworzenie konta pracownika albo supervisora.
 - [ ] Edycja imienia, e-maila, roli i statusu konta.
 - [ ] Zmiana/reset hasła bez wyświetlania starego hasła.
 - [ ] Usuwanie lub — bezpieczniej — dezaktywacja konta.
 
 Walidacja:
 
-- [ ] Imię jest wymagane.
-- [ ] E-mail jest wymagany, poprawny i unikalny.
-- [ ] Hasło jest wymagane przy tworzeniu, bezpieczne i potwierdzone.
-- [ ] Rola może przyjąć wyłącznie dozwoloną wartość.
+- [X ] Imię jest wymagane.
+- [X] E-mail jest wymagany, poprawny i unikalny.
+- [X] Hasło jest wymagane przy tworzeniu, bezpieczne i potwierdzone.
+- [X] Rola może przyjąć wyłącznie dozwoloną wartość.
 
 **Gotowe, gdy:** administrator wykona pełne CRUD kont użytkowników.
 
